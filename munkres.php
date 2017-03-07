@@ -128,11 +128,21 @@ final class MukresAlgorithm
 
         foreach ($this->C as $r => $row) {
             $min_in_row = min($row);
-            for($c = 0; $c < $this->ncol; $c++){
-                $this->C[$r][$c] -= $min_in_row;
+            if ($min_in_row>0) {
+                for($c = 0; $c < $this->ncol; $c++){
+                    $this->C[$r][$c] -= $min_in_row;
+                }
             }
         }
-	
+        for ($c=0; $c < $this->ncol; $c++) {
+            $min_in_col = min(array_column($this->C, $c));
+            if ($min_in_col>0) {
+                for ($r=0; $r < $this->nrow; $r++) { 
+                    $this->C[$r][$c] -= $min_in_col;
+                }
+            }
+        }
+
         $this->step = 2;
         if($this->debug){
             echo "-------step1:step2-------\n";
