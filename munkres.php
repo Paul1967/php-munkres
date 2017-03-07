@@ -125,18 +125,14 @@ final class MukresAlgorithm
     }
 
     private function step_one(){
-        $min_in_row = 10000;
-        for($r = 0; $r < $this->nrow; $r++){
-            $min_in_row = $this->C[$r][0];
-            for($c = 0; $c < $this->ncol; $c++){
-                if($this->C[$r][$c] < $min_in_row){
-                    $min_in_row = $this->C[$r][$c];
-                }
-            }
+
+        foreach ($this->C as $r => $row) {
+            $min_in_row = min($row);
             for($c = 0; $c < $this->ncol; $c++){
                 $this->C[$r][$c] -= $min_in_row;
             }
         }
+	
         $this->step = 2;
         if($this->debug){
             echo "-------step1:step2-------\n";
